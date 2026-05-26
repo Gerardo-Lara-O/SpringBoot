@@ -1,14 +1,21 @@
 package com.gerardo.springboot.springmvc.app.entities;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
-@
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String lastname;
     private String email;
     private String username;
+
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     public User() {
@@ -17,6 +24,10 @@ public class User {
     public User(String name, String lastname) {
         this.name = name;
         this.lastname = lastname;
+    }
+
+    @PrePersist
+    public void prePersist(){
         this.createdAt = LocalDateTime.now();
     }
 
