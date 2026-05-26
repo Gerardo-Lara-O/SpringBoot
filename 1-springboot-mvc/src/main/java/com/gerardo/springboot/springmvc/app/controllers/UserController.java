@@ -44,7 +44,7 @@ public class UserController {
         return "form";
     }
 
-    // path variable
+    // Link para editar
     @GetMapping("/form/{id}")
     public String form(@PathVariable Long id, Model model, RedirectAttributes redirect){
         Optional<User> optionalUser = service.findById(id);
@@ -59,7 +59,7 @@ public class UserController {
         }
     }
 
-    @PostMapping
+    @PostMapping // es lo mismo que si le ponemos la ruta raiz ("/")
     public String form(User user, Model model,RedirectAttributes redirect){
         String message = (user.getId() > 0)?"El usuario " + user.getName() + " se ha actualizado con exito" : "El usuario " + user.getName() +
                 " se ha creado con exito";
@@ -69,6 +69,7 @@ public class UserController {
         return "redirect:/users";
     }
 
+//    Link para borrar
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirect){
         Optional<User> optionalUser = service.findById(id);

@@ -1,10 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
 </head>
 <body>
-$END$
+    <div>
+        <h3 th:text="${title}"></h3>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>LastName</th>
+                <th>email</th>
+                <th>Created At</th>
+                <th>Edit</th>
+                <th>Remove</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user: ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.lastname}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.createdAt}"></td>
+                <td><a th:href="@{/form/} + ${user.id}">Edit</a></td>
+                <td><a th:href="@{/delete/} + ${user.id}" onclick="return confirm('Esta seguro que desea eliminar?')">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
