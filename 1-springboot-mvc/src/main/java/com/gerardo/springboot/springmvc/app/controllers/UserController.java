@@ -30,7 +30,7 @@ public class UserController {
         return "view"; // aqui va el nombre de la plantilla, tiene que ser el mismo
     }
 
-    @GetMapping("/")
+    @GetMapping({"","/"})
     public String list(Model model){
         model.addAttribute("title","Listado de Usuarios");
         model.addAttribute("users",service.findAll());
@@ -61,7 +61,7 @@ public class UserController {
 
     @PostMapping // es lo mismo que si le ponemos la ruta raiz ("/")
     public String form(User user, Model model,RedirectAttributes redirect){
-        String message = (user.getId() > 0)?"El usuario " + user.getName() + " se ha actualizado con exito" : "El usuario " + user.getName() +
+        String message = (user.getId() != null && user.getId() > 0)?"El usuario " + user.getName() + " se ha actualizado con exito" : "El usuario " + user.getName() +
                 " se ha creado con exito";
 
         service.save(user);

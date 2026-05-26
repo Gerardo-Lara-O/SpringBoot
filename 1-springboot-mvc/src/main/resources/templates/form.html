@@ -10,6 +10,7 @@
         <a th:href="@{/users}" th:text="'Volver'"></a>
         <form th:action="@{/users}" method="post" th:object="${user}">
             <input type="hidden" th:field="*{id}">
+            <input type="hidden" th:field="*{createdAt}">
             <div>
                 <label for="name">Nombre: </label>
                 <div>
@@ -18,9 +19,9 @@
             </div>
 
             <div>
-                <label for="lastName">Apellidos: </label>
+                <label for="lastname">Apellidos: </label>
                 <div>
-                    <input type="text" name="lastName" id="lastName" th:field="*{lastName}">
+                    <input type="text" name="lastname" id="lastname" th:field="*{lastname}">
                 </div>
             </div>
 
@@ -41,7 +42,7 @@
             <div>
                 <label for="password">Password</label>
                 <div>
-                    <input type="text" id="password" th:field="*{password}">
+                    <input type="password" id="password" th:field="*{password}">
                 </div>
             </div>
 

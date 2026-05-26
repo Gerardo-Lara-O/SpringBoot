@@ -8,7 +8,7 @@
     <div>
         <h3 th:text="${title}"></h3>
 
-        <a th:href="@{/form}" th:text="'Crear user (+)'"></a>
+        <a th:href="@{/users/form}" th:text="'Crear user (+)'"></a>
         <div th:text="'No hay usuarios en el sistema'" th:if="${#lists.isEmpty(users)}"></div>
 
         <table th:if="${not #lists.isEmpty(users)}">
@@ -30,8 +30,8 @@
                 <td th:text="${user.lastname}"></td>
                 <td th:text="${user.email}"></td>
                 <td th:text="${user.createdAt}"></td>
-                <a th:href="@{/form/{id}(id=${user.id})}">Edit</a>
-                <td><a th:href="@{/delete/} + ${user.id}" onclick="return confirm('Esta seguro que desea eliminar?')">Delete</a></td>
+                <td><a th:href="@{/users/form/{id}(id=${user.id})}">Edit</a></td>
+                <td><a th:href="@{/users/delete/} + ${user.id}" onclick="return confirm('Esta seguro que desea eliminar?')">Delete</a></td>
             </tr>
             </tbody>
         </table>
