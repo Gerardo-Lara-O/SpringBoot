@@ -53,7 +53,7 @@ public class UserController {
             model.addAttribute("user",optionalUser.get());
             return "form";
         }else{
-            redirect.addFlashAttribute("error","El usuario cin id " + id +
+            redirect.addFlashAttribute("error","El usuario con id " + id +
                     " no existe en la base de datos!");
             return "redirect:/users";
         }
@@ -61,15 +61,9 @@ public class UserController {
 
     @PostMapping
     public String form(User user, Model model,RedirectAttributes redirect){
-        String message = "";
-        if (user.getId() > 0){
-            message = "El usuario " + user.getName() +
-                    " se ha actualizado con exito";
+        String message = (user.getId() > 0)?"El usuario " + user.getName() + " se ha actualizado con exito" : "El usuario " + user.getName() +
+                " se ha creado con exito";
 
-        }else {
-            message = "El usuario " + user.getName() +
-                    " se ha creado con exito";
-        }
         service.save(user);
         redirect.addFlashAttribute("success", message);
         return "redirect:/users";
