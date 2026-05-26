@@ -7,9 +7,9 @@
 <body>
     <h1 th:text="${message}"></h1>
     <ul>
-        <li th:text="${user.name}"></li>
-        <li th:text="${user.lastname}"></li>
-        <li th:text="${user.createdAt}"></li>
+        <li th:text="'Nombre: ' + ${user.name}"></li>
+        <li th:text="'Apellido: ' + ${user.lastname}"></li>
+        <li th:text="'Creado en: ' + ${user.createdAt}"></li>
     </ul>
 </body>
 </html>
