@@ -108,11 +108,11 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Product> delete(@PathVariable Long id){
         // Buscamos si existe antes de intentar borrarlo.
-        Optional<Product> optionalProduct = service.findById(id);
+        Optional<Product> optionalProduct = service.deleteById(id);
 
         if (optionalProduct.isPresent()){
             // Usamos tu método del servicio (que devuelve un Optional).
-            Product productDeleted = service.deleteById(id).orElseThrow();
+            Product productDeleted = optionalProduct.orElseThrow();
             // Retornamos 200 OK y, de forma opcional (pero buena práctica),
             // devolvemos el objeto que acabamos de borrar por si el Front-end lo necesita.
             return ResponseEntity.status(HttpStatus.OK).body(productDeleted);
