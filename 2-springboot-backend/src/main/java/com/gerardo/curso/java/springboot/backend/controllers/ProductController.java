@@ -14,6 +14,7 @@ import java.util.Optional;
 // aquí le dices a Spring: "Todo lo que devuelvan estos métodos, conviértelo
 // automáticamente a JSON y mándalo directamente al cuerpo (body) de la respuesta HTTP".
 @RestController
+@CrossOrigin("http://localhost:5173/")
 // *TIP PROFESIONAL:* Te sugiero agregar aquí un @RequestMapping("/api/products")
 // para que todas las rutas nazcan desde ahí y no desde la raíz de tu proyecto.
 public class ProductController {
