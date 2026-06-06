@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 
 const initialDataForm = {
@@ -8,11 +8,15 @@ const initialDataForm = {
     price: ''
 }
 
-export const ProductForm = ({handlerAdd}) => {
+export const ProductForm = ({handlerAdd, productSelected}) => {
 
     const [form, setForm] = useState(initialDataForm);
 
     const { id, name, description, price } = form;
+
+    useEffect(() => {
+        setForm(productSelected);
+    }, [productSelected]);
 
     return <form onSubmit={event => {
         event.preventDefault();
@@ -46,5 +50,6 @@ export const ProductForm = ({handlerAdd}) => {
 }
 
 ProductForm.propTypes = {
-    handlerAdd: PropTypes.func.isRequired
+    handlerAdd: PropTypes.func.isRequired,
+    productSelected: PropTypes.object.isRequired
 }

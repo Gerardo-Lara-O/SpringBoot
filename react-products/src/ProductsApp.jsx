@@ -21,6 +21,12 @@ const initProducts = [{
 export const ProductsApp = ({ title = 'Hola que tal' }) => {
 
     const [products, setProducts] = useState([]);
+    const [productSelected, setProductSelected] = useState({
+        id: 0,
+        name: '',
+        description: '',
+        price:''
+    })
 
     useEffect(() => {
         setProducts(initProducts);
@@ -28,17 +34,49 @@ export const ProductsApp = ({ title = 'Hola que tal' }) => {
     }, []);
 
     const handlerAddProduct = (product) => {
-        setProducts([...products,{...product, id: Date.now()}])
+    // Si el ID es mayor a 0, significa que estamos EDITANDO un producto existente
+    if (product.id > 0) {
+        setProducts(
+            products.map(prod => { // <-- ¡Corregido! Iteramos sobre la lista 'products'
+                if (prod.id === product.id) {
+                    return { ...product }; // Si encontramos el que editamos, lo reemplazamos por el nuevo
+                }
+                return prod; // Si no es el que editamos, lo dejamos exactamente igual
+            })
+        );
+    } else {
+        // Si el ID es 0, estamos CREANDO uno nuevo
+        setProducts([...products, { ...product, id: Date.now() }]);
+    }
+}
+
+    const handlerProductSelected = (product) => {
+        setProductSelected({...product})
+        console.log(productSelected)
+    }
+
+    const handlerRemoveProduct = (id) => {
+        setProducts(
+            products.filter(product => product.id != id)
+        );
     }
 
     return <div className='container my-4'>
         <h2>{title}</h2>
         <div className="row">
             <div className='col'>
-                <ProductForm handlerAdd={handlerAddProduct}></ProductForm>
+                <ProductForm handlerAdd={handlerAddProduct} productSelected={ productSelected}></ProductForm>
             </div>
             <div className="col">
-                <ProductTable products={products} />
+            {
+                (products.length > 0) ? 
+                <ProductTable products={products} 
+                handlerProductSelected ={handlerProductSelected}
+                handlerRemoveProduct = {handlerRemoveProduct}
+                 /> : 
+                <div className='alert alert-warning'>No hay productos en el sistema</div>
+            }
+                
             </div>
         </div>
     </div>
