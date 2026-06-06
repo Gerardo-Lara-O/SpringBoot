@@ -4,19 +4,19 @@ import PropTypes from "prop-types"
 import { ProductTable } from "./components/ProductTable"
 import { ProductForm } from './components/ProductForm';
 
-const initProducts = [{
-    id: 1,
-    name: 'Monitor Asus',
-    description: 'El monitor es perfecto para juegos',
-    price: 1000
-},
+// const initProducts = [{
+//     id: 1,
+//     name: 'Monitor Asus',
+//     description: 'El monitor es perfecto para juegos',
+//     price: 1000
+// },
 
-{
-    id: 2,
-    name: 'Iphone 16 Pro',
-    description: 'Telefono excelente',
-    price: 3000
-}]
+// {
+//     id: 2,
+//     name: 'Iphone 16 Pro',
+//     description: 'Telefono excelente',
+//     price: 3000
+// }]
 
 export const ProductsApp = ({ title = 'Hola que tal' }) => {
 
