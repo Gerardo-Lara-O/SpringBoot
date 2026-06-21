@@ -1,6 +1,5 @@
 package com.gerardo.curso.webapp.controllers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +16,18 @@ import com.gerardo.curso.webapp.models.dto.UserDto;
 @RequestMapping("/api")
 public class UserRestController {
 
-    // Usando Model
+    // Usando map para el detalle
+    @GetMapping("/details-map")
+    public Map<String, Object> detailsMap(){
+        Map<String, Object> body = new HashMap<>();
+        User user = new User("Gerardo","Lara");
+
+        body.put("title", "Hola mundo Spring con Map");
+        body.put("user",user);
+        return body;
+    }
+
+    // detalles
     @GetMapping("/details")
     // Tambien podemos usar
     // @RequestMapping(path = "/details", method = RequestMethod.GET)
@@ -28,6 +38,7 @@ public class UserRestController {
         return userDto;
     }
 
+    // lista de usuarios
     @GetMapping("/list")
     public List<User> list(){
         User user1 = new User("Gerardo","Lara");
@@ -42,18 +53,5 @@ public class UserRestController {
         // users.add(user3);
 
         return users;
-    }
-
-      // Usando Model
-    @GetMapping("/details-map")
-    // Tambien podemos usar
-    // @RequestMapping(path = "/details", method = RequestMethod.GET)
-    public Map<String, Object> detailsMap(){
-        Map<String, Object> body = new HashMap<>();
-        User user = new User("Gerardo","Lara");
-
-        body.put("title", "Hola mundo Spring con Map");
-        body.put("user",user);
-        return body;
     }
 }

@@ -3,13 +3,15 @@ package com.gerardo.curso.webapp.models;
 public class User {
     private String name;
     private String lastname;
+    private String email;
 
     public User() {
     }
 
-    public User(String name, String lastname) {
+    public User(String name, String lastname, String email) {
         this.name = name;
         this.lastname = lastname;
+        this.email = email;
     }
 
     public String getName() {
@@ -25,5 +27,12 @@ public class User {
         this.lastname = lastname;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     
 }
