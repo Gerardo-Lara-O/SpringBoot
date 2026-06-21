@@ -9,7 +9,7 @@
     <h1 th:text="${title}"></h1>
     <!-- o podemos usar users.isEmpty() - devuelve true/false -->
     <div th:if="${users.size() == 0}" th:text="'No tiene elementos usuarios!'"></div>
-    <table>
+    <table th:if="${not users.isEmpty()}">
         <thead>
             <tr>
                 <th>name</th>
