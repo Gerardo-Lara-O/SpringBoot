@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gerardo.curso.webapp.models.dto.ParamDto;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/api/params")
 public class RequestParamsController {
@@ -24,6 +26,21 @@ public class RequestParamsController {
         ParamDto params = new ParamDto();
         params.setMessage(text);
         params.setCode(code);
+        return params;
+    }
+
+    @GetMapping("/request") 
+    public ParamDto request(HttpServletRequest request){
+        Integer code = 10;
+        try {
+            code = Integer.parseInt(request.getParameter("code"));
+        } catch (NumberFormatException e) {
+            // TODO: handle exception
+            e.getMessage();
+        }
+        ParamDto params = new ParamDto();
+        params.setCode(code);
+        params.setMessage(request.getParameter("message"));
         return params;
     }
 
