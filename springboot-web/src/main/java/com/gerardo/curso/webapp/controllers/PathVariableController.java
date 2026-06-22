@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +46,9 @@ public class PathVariableController {
     @Value("#{${config.valuesMap}.product}")
     private String product;
 
+    @Autowired
+    private Environment environment;
+
       // Handlers
     @GetMapping("/baz/{message}")
     public ParamDtoMix baz(@PathVariable String message){
@@ -71,8 +76,14 @@ public class PathVariableController {
     public Map<String,Object> values(@Value("${config.message}") String message){
         Map<String, Object> json = new HashMap<>();
         json.put("username", username);
-        json.put("code",code);
-        json.put("message", message);
+        // json.put("code",code);
+        // Usando environment
+        json.put("message2", environment.getProperty("config.message"));
+        // podemos hacer el cast de esta forma a un Integer
+        // json.put("code2", Integer.valueOf(environment.getProperty("config.code")) );
+        // O de esta forma para pasarlo a un Long
+        json.put("code2", environment.getProperty("config.code",Long.class));
+
         json.put("listOfValues", listOfValues);
         json.put("valueList", valueList);
         json.put("valueString", valueString);
