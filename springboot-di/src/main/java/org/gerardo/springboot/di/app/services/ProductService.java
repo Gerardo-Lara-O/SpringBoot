@@ -18,6 +18,17 @@ public class ProductService {
         }).collect(Collectors.toList());
     }
 
+        // con clone()
+        public List<Product> findAll2(){
+        return repository.findAll().stream().map(p -> {
+            Double priceTax = p.getPrice() * 1.25d;
+            // Product newProd = new Product(p.getId(),p.getName(),priceImp.longValue());
+            Product newProd = (Product) p.clone();
+            newProd.setPrice(priceTax.longValue());
+            return newProd;
+        }).collect(Collectors.toList());
+    }
+
     public Product findById(Long id){
         return repository.findById(id);
     }
