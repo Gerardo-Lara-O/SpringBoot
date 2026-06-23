@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.gerardo.springboot.di.app.models.Product;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ProductRepositoryImpl implements ProductRepository{
     
     private List<Product> data;
