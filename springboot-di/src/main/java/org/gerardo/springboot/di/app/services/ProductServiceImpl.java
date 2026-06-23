@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.gerardo.springboot.di.app.models.Product;
-import org.gerardo.springboot.di.app.repositories.ProductRepositoryImpl;
+import org.gerardo.springboot.di.app.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class ProductServiceImpl implements ProductService{
 
     @Autowired
-    private ProductRepositoryImpl repository;
+    private ProductRepository repository;
     
     @Override
     public List<Product> findAll(){
