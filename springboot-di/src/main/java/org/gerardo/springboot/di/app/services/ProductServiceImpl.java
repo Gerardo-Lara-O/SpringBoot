@@ -5,15 +5,17 @@ import java.util.stream.Collectors;
 
 import org.gerardo.springboot.di.app.models.Product;
 import org.gerardo.springboot.di.app.repositories.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService{
 
-    @Autowired
     private ProductRepository repository;
     
+    public ProductServiceImpl(ProductRepository repository) {
+        this.repository = repository;
+    }
+
     @Override
     public List<Product> findAll(){
         return repository.findAll().stream().map(p -> {
