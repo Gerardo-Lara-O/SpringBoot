@@ -4,9 +4,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.gerardo.springboot.di.app.models.Product;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
+// import org.springframework.web.context.annotation.RequestScope;
+// import org.springframework.web.context.annotation.SessionScope;
 
-@Repository
+@Primary
+// @SessionScope
+// @RequestScope
+@Repository("productList")
 public class ProductRepositoryImpl implements ProductRepository{
     
     private List<Product> data;
