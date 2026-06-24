@@ -14,7 +14,8 @@ public class Invoice {
 
     @Value("${invoice.description}")
     private String description;
-    
+
+    @Autowired
     private List<Item> items;
 
     // Getters y Setters
