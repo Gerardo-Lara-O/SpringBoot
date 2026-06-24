@@ -40,7 +40,16 @@ public class Invoice {
 
     //Metodos
     public int getTotal(){
-        return 0;
+        // int total = 0;
+        // for (Item item : items) {
+        //     total = total + item.getImporte();
+        // }
+
+        // segunda forma con api stream
+        int total = items.stream()
+        .map(item -> item.getImporte())
+        .reduce(0, (sum,importe)-> sum + importe);
+        return total;
     }
 
     
