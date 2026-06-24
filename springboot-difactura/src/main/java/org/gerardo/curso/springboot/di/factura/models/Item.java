@@ -7,7 +7,7 @@ public class Item {
 
     // Constructores
     public Item(){}
-    
+
     public Item(Product product, Integer quantity) {
         this.product = product;
         this.quantity = quantity;
@@ -28,6 +28,11 @@ public class Item {
 
  public void setQuantity(Integer quantity) {
     this.quantity = quantity;
+ }
+
+ //metodos
+ public int getImporte(){
+    return quantity * product.getPrice();
  }
     
     

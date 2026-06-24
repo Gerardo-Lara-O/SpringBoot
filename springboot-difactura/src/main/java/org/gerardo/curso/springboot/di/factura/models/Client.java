@@ -8,11 +8,13 @@ public class Client {
 
     @Value("${client.name}")
     private String name;
-    
+
     @Value("${client.lastname}")
     private String lastname;
     
     // Constructor
+    public Client(){}
+
     public Client(String name, String lastname) {
         this.name = name;
         this.lastname = lastname;

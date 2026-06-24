@@ -38,6 +38,11 @@ public class Invoice {
         this.items = items;
     }
 
+    //Metodos
+    public int getTotal(){
+        return 0;
+    }
+
     
     
 }
