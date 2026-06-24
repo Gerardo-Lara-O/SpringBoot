@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import jakarta.annotation.PostConstruct;
+
 @Component
 public class Invoice {
 
@@ -19,6 +21,13 @@ public class Invoice {
     @Autowired
     @Qualifier("itemsInvoiceOficina")
     private List<Item> items;
+
+    @PostConstruct
+    public void init(){
+        System.out.println("Creando el componente de la factura");
+        client.setName(client.getName().concat(" Pepe"));
+        description = description.concat(" del cliente: ".concat(client.getName()).concat(" ").concat(client.getLastname()));
+    }
 
     // Getters y Setters
     public Client getClient() {
