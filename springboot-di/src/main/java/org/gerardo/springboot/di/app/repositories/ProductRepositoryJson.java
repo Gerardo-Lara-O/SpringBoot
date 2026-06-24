@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.gerardo.springboot.di.app.models.Product;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -14,11 +15,21 @@ public class ProductRepositoryJson implements ProductRepository{
 
     private List<Product> list;
 
+    // No funcionaria por que no es un componente
+    // @Value("classpath:json/product.json")
+    // private Resource resource;
+
+    public ProductRepositoryJson(Resource resource) {
+        readValueJson(resource);
+    }
+
     public ProductRepositoryJson() {
     // 1. Buscamos el archivo en la carpeta src/main/resources/json
         Resource resource = new ClassPathResource("json/product.json");
-        
-        // 2. Instanciamos el traductor
+        readValueJson(resource);
+    }
+
+    private void readValueJson(Resource resource) {
         ObjectMapper objectMapper = new ObjectMapper();
         
         try {
