@@ -2,6 +2,7 @@ package org.gerardo.curso.springboot.di.factura.models;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -9,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Component
 @RequestScope
-@JsonIgnoreProperties({"targetSource","advisors"})
+// @JsonIgnoreProperties({"targetSource","advisors"})
 public class Client {
 
     @Value("${client.name}")
