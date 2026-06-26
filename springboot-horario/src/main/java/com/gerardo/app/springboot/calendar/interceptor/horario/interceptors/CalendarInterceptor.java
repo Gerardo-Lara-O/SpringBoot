@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tools.jackson.databind.ObjectMapper;
 
-@Component
+@Component("calendarInterceptor")
 public class CalendarInterceptor implements HandlerInterceptor{
 
     @Value("${config.calendar.open}")
@@ -33,7 +33,7 @@ public class CalendarInterceptor implements HandlerInterceptor{
 
         if (hour >= open && hour < close) {
             StringBuilder message = new StringBuilder("Bienvenidos al horario de atencion a clientes");
-            message.append(", atendemos desde las");
+            message.append(", atendemos desde las ");
             message.append(open);
             message.append("hrs. ");
             message.append("hasta las ");
