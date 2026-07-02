@@ -25,7 +25,8 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		// aqui vamos a trabajar con nuestra persistancia
 
-		List<Person> persons = (List<Person>)repository.findAll();
+		// List<Person> persons = (List<Person>)repository.findAll();
+		List<Person> persons = (List<Person>)repository.findByProgrammingLanguageAndName("Java","Gerardo");
 		persons.stream().forEach(person -> {
 			System.out.println(person);
 		});
