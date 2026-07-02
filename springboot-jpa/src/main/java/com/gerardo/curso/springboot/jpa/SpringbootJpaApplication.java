@@ -26,7 +26,7 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		// aqui vamos a trabajar con nuestra persistancia
 		findOne();
-		
+		// create();
 	}
 
 	public void findOne(){
@@ -54,5 +54,12 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		personsValues.stream().forEach(person -> {
 			System.out.println(person[0] + " es experto en " + person[1]);
 		});
+	}
+
+	public void create(){
+		Person person = new Person(null,"Lalo","Thor","Python");
+
+		Person personNew = repository.save(person);
+		System.out.println(personNew);
 	}
 }
