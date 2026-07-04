@@ -35,7 +35,8 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		// delete();
 		// personalizedQueries();
 		// personalizedQueries2();
-		personalizedQueriesDistinct();
+		// personalizedQueriesDistinct();
+		personalizedQueriesConcatUpperAndLower();
 	}
 
 	@Transactional(readOnly = true)
@@ -117,6 +118,27 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		System.out.println("========== Consulta con total de lenguajes de programacion unicas ==========");
 		Long totalLanguages = repository.findAllProgrammingLanguageDistinctCount();
 		System.out.println("Total de lenguajes: " + totalLanguages);
+	}
+
+	@Transactional(readOnly = true)
+	public void personalizedQueriesConcatUpperAndLower(){
+		System.out.println("========== Consultas nombres y apellidos de personas ==========");
+		List<String> names = repository.findFullNameConcat();
+		names.forEach(System.out::println);
+
+		System.out.println("========== Consultas nombres y apellidos de personas en Mayusculas ==========");
+		List<String> namesUpper = repository.findFullNameConcatUpper();
+		namesUpper.forEach(System.out::println);
+
+		System.out.println("========== Consultas nombres y apellidos de personas en Minusculas ==========");
+		List<String> namesLower = repository.findFullNameConcatLower();
+		namesLower.forEach(System.out::println);
+
+		System.out.println("========== Consultas nombres y apellidos de personas en Minusculas y Mayusculas ==========");
+		List<Object[]> regs = repository.findAllPersonDataListCase();
+		regs.forEach(reg -> {
+			System.out.println("id=" + reg[0] + ", name=" + reg[1] + ", lastname=" + reg[2] + ", lenguaje="+ reg[3]);
+		});
 	}
 
 	// @Transactional(readOnly = true)
