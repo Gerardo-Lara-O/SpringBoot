@@ -36,7 +36,8 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		// personalizedQueries();
 		// personalizedQueries2();
 		// personalizedQueriesDistinct();
-		personalizedQueriesConcatUpperAndLower();
+		// personalizedQueriesConcatUpperAndLower();
+		personalizedQueriesBetwwen();
 	}
 
 	@Transactional(readOnly = true)
@@ -139,6 +140,17 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		regs.forEach(reg -> {
 			System.out.println("id=" + reg[0] + ", name=" + reg[1] + ", lastname=" + reg[2] + ", lenguaje="+ reg[3]);
 		});
+	}
+
+	@Transactional(readOnly = true)
+	public void personalizedQueriesBetwwen(){
+		System.out.println("========== Consultas por rango ==========");
+		List<Person> persons = repository.findAllBetweenId();
+		persons.forEach(System.out::println);
+
+		System.out.println("========== Consultas por rango de nombre ==========");
+		persons = repository.findAllBetweenName();
+		persons.forEach(System.out::println);
 	}
 
 	// @Transactional(readOnly = true)
