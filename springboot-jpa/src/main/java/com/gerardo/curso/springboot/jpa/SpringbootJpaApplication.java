@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gerardo.curso.springboot.jpa.dto.PersonDto;
 import com.gerardo.curso.springboot.jpa.entities.Person;
 import com.gerardo.curso.springboot.jpa.repositories.PersonRepositorJPQL;
 import com.gerardo.curso.springboot.jpa.repositories.PersonRepository;
@@ -88,6 +89,12 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		List<Person> persons = repository.findAllObjectPersonPersonalized();
 		persons.forEach(p -> {
 			System.out.println(p);
+		});
+
+		System.out.println("========== Consulta que puebla y devuleve objeto DTO de una clase personalizada ==========");
+		List<PersonDto> personDto = repository.findAllPersonDTO();
+		personDto.forEach(dto -> {
+			System.out.println(dto);
 		});
 	}
 
