@@ -29,7 +29,8 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		// aqui vamos a trabajar con nuestra persistancia
 		// findOne();
 		// create();
-		update();
+		// update();
+		delete();
 	}
 
 	@Transactional(readOnly = true)
@@ -98,6 +99,21 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		}
 
 		scanner.close();
+
+	}
+
+	@Transactional
+	public void delete(){
+		// primera forma
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Ingrese el id a eliminar");
+		Long id = scanner.nextLong();
+
+		repository.deleteById(id);
+		repository.findAll().forEach(System.out::println);
+
+		
+		
 
 	}
 }
