@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gerardo.curso.springboot.jpa.entities.Person;
+import com.gerardo.curso.springboot.jpa.repositories.PersonRepositorJPQL;
 import com.gerardo.curso.springboot.jpa.repositories.PersonRepository;
 
 //Como no vamos a usar la parte web vamos a implementar una interface CommandLineRunner
@@ -18,7 +19,7 @@ import com.gerardo.curso.springboot.jpa.repositories.PersonRepository;
 public class SpringbootJpaApplication implements CommandLineRunner {
 
 	@Autowired
-	private PersonRepository repository;
+	private PersonRepositorJPQL repository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootJpaApplication.class, args);
@@ -31,11 +32,13 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		// create();
 		// update();
 		// delete();
-		personalizedQueries();
+		// personalizedQueries();
+		personalizedQueries2();
 	}
 
 	@Transactional(readOnly = true)
 	public void personalizedQueries(){
+
 		// System.out.println("========== Consulta solo el nombre por el id ==========");
 		// Scanner scanner = new Scanner(System.in);
 		// System.out.println("Ingrese el id: ");
@@ -73,74 +76,89 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		});
 	}
 
-	@Transactional(readOnly = true)
-	public void findOne() {
-		Person person = null;
-		Optional<Person> optionalPerson = repository.findById(1L);
-		if (optionalPerson.isPresent()) {
-			person = optionalPerson.get();
-		}
-		System.out.println(person);
+	public void personalizedQueries2(){
+		System.out.println("========== Consulta por objeto persona y lenguaje de programacion ==========");
+		List<Object[]> personsRegs = repository.findAllMixPerson();
 
-		// o usamos una abreviacion
-		// repository.findById(1L).ifPresent(person -> System.out.println(person));
-
-		repository.findOne(6L).ifPresent(p -> System.out.println(p));
-
-		repository.obtenerPersonData("Lalo");
-	}
-
-	@Transactional(readOnly = true)
-	public void list() {
-		// List<Person> persons = (List<Person>)repository.findAll();
-		List<Person> persons = (List<Person>) repository.findByProgrammingLanguageAndName("Java", "Gerardo");
-		persons.stream().forEach(person -> {
-			System.out.println(person);
+		personsRegs.forEach(reg -> {
+			System.out.println("programmingLanguage=" + reg[1] + ", person=" + reg[0]);
 		});
 
-		List<Object[]> personsValues = repository.obtenerPersonData("Python", "Pepe");
-		personsValues.stream().forEach(person -> {
-			System.out.println(person[0] + " es experto en " + person[1]);
+		System.out.println("========== Consulta que puebla y devuleve objeto entity de una instancia personalizada ==========");
+		List<Person> persons = repository.findAllObjectPersonPersonalized();
+		persons.forEach(p -> {
+			System.out.println(p);
 		});
 	}
+
+	// @Transactional(readOnly = true)
+	// public void findOne() {
+	// 	Person person = null;
+	// 	Optional<Person> optionalPerson = repository.findById(1L);
+	// 	if (optionalPerson.isPresent()) {
+	// 		person = optionalPerson.get();
+	// 	}
+	// 	System.out.println(person);
+
+	// 	// o usamos una abreviacion
+	// 	// repository.findById(1L).ifPresent(person -> System.out.println(person));
+
+	// 	repository.findOne(6L).ifPresent(p -> System.out.println(p));
+
+	// 	repository.obtenerPersonData("Lalo");
+	// }
+
+	// @Transactional(readOnly = true)
+	// public void list() {
+	// 	// List<Person> persons = (List<Person>)repository.findAll();
+	// 	List<Person> persons = (List<Person>) repository.findByProgrammingLanguageAndName("Java", "Gerardo");
+	// 	persons.stream().forEach(person -> {
+	// 		System.out.println(person);
+	// 	});
+
+	// 	List<Object[]> personsValues = repository.obtenerPersonData("Python", "Pepe");
+	// 	personsValues.stream().forEach(person -> {
+	// 		System.out.println(person[0] + " es experto en " + person[1]);
+	// 	});
+	// }
 
 	@Transactional
 	public void create() {
-		Scanner scanner = new Scanner(System.in);
-		String name = scanner.next();
-		String lastname = scanner.next();
-		String programmingLanguage = scanner.next();
-		scanner.close();
+		// Scanner scanner = new Scanner(System.in);
+		// String name = scanner.next();
+		// String lastname = scanner.next();
+		// String programmingLanguage = scanner.next();
+		// scanner.close();
 
-		Person person = new Person(null, name, lastname, programmingLanguage);
+		// Person person = new Person(null, name, lastname, programmingLanguage);
 
-		Person personNew = repository.save(person);
-		System.out.println(personNew);
+		// Person personNew = repository.save(person);
+		// System.out.println(personNew);
 	}
 
 	@Transactional
 	public void update() {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Ingrese el id de la persona: ");
-		Long id = scanner.nextLong();
+		// Scanner scanner = new Scanner(System.in);
+		// System.out.println("Ingrese el id de la persona: ");
+		// Long id = scanner.nextLong();
 
-		Optional<Person> optionalPerson = repository.findById(id);
+		// Optional<Person> optionalPerson = repository.findById(id);
 
-		if (optionalPerson.isPresent()) {
-			Person p = optionalPerson.orElseThrow();
+		// if (optionalPerson.isPresent()) {
+		// 	Person p = optionalPerson.orElseThrow();
 
-			System.out.println(p);
-			System.out.println("Ingrese el lenguage de programacion: ");
-			String programmingLanguage = scanner.next();
-			p.setProgrammingLanguage(programmingLanguage);
-			Person personDb = repository.save(p);
-			System.out.println(personDb);
+		// 	System.out.println(p);
+		// 	System.out.println("Ingrese el lenguage de programacion: ");
+		// 	String programmingLanguage = scanner.next();
+		// 	p.setProgrammingLanguage(programmingLanguage);
+		// 	Person personDb = repository.save(p);
+		// 	System.out.println(personDb);
 
-		} else {
-			System.out.println("El usuario no existe");
-		}
+		// } else {
+		// 	System.out.println("El usuario no existe");
+		// }
 
-		scanner.close();
+		// scanner.close();
 
 	}
 
@@ -155,15 +173,15 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		// repository.findAll().forEach(System.out::println);
 
 		// Segunda forma
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Ingrese el id a eliminar");
-		Long id = scanner.nextLong();
+		// Scanner scanner = new Scanner(System.in);
+		// System.out.println("Ingrese el id a eliminar");
+		// Long id = scanner.nextLong();
 
-		Optional<Person> optionalPerson = repository.findById(id);
-		optionalPerson.ifPresentOrElse(person -> repository.delete(person),() -> System.out.println("Lo sentimos no existe!"));
-		// buscar todos
-		repository.findAll().forEach(System.out::println);
+		// Optional<Person> optionalPerson = repository.findById(id);
+		// optionalPerson.ifPresentOrElse(person -> repository.delete(person),() -> System.out.println("Lo sentimos no existe!"));
+		// // buscar todos
+		// repository.findAll().forEach(System.out::println);
 		
-		scanner.close();
+		// scanner.close();
 	}
 }
