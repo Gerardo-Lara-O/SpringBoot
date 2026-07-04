@@ -9,6 +9,13 @@ import java.util.Optional;
 
 
 public interface PersonRepository extends CrudRepository<Person, Long>{
+
+    @Query("select p.name from Person p where p.id=?1")
+    String getNameById(Long id);
+
+    @Query("select concat(p.name, ' ', p.lastname ) as fullname from Person p where p.id=?1")
+    String getFullNameById(Long id);
+
     
     // Usando la nomenclatura Query method
     List<Person> findByProgrammingLanguage(String programmingLanguage);

@@ -30,7 +30,27 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		// findOne();
 		// create();
 		// update();
-		delete();
+		// delete();
+		personalizedQueries();
+	}
+
+	@Transactional(readOnly = true)
+	public void personalizedQueries(){
+		System.out.println("========== Consulta solo el nombre por el id ==========");
+		// Scanner scanner = new Scanner(System.in);
+		// System.out.println("Ingrese el id: ");
+		// Long id = scanner.nextLong();
+		// String name = repository.getNameById(id);
+		// System.out.println(name);
+
+		
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Ingrese el id: ");
+		Long id = scanner.nextLong();
+		String fullName = repository.getFullNameById(id);
+		System.out.println(fullName);
+
+		scanner.close();
 	}
 
 	@Transactional(readOnly = true)
@@ -46,6 +66,8 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		// repository.findById(1L).ifPresent(person -> System.out.println(person));
 
 		repository.findOne(6L).ifPresent(p -> System.out.println(p));
+
+		repository.obtenerPersonData("Lalo");
 	}
 
 	@Transactional(readOnly = true)
