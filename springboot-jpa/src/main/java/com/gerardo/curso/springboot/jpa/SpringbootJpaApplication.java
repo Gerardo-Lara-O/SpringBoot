@@ -36,21 +36,41 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 	@Transactional(readOnly = true)
 	public void personalizedQueries(){
-		System.out.println("========== Consulta solo el nombre por el id ==========");
+		// System.out.println("========== Consulta solo el nombre por el id ==========");
 		// Scanner scanner = new Scanner(System.in);
 		// System.out.println("Ingrese el id: ");
 		// Long id = scanner.nextLong();
 		// String name = repository.getNameById(id);
 		// System.out.println(name);
 
-		
+
+		System.out.println("========== Mostrando solo el nombre completo con concat  ==========");
+		// Scanner scanner = new Scanner(System.in);
+		// System.out.println("Ingrese el id: ");
+		// Long id = scanner.nextLong();
+		// String fullName = repository.getFullNameById(id);
+		// System.out.println(fullName);
+
+		System.out.println("========== Obtener el arreglo de parametros del objeto por el id ==========");
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Ingrese el id: ");
 		Long id = scanner.nextLong();
-		String fullName = repository.getFullNameById(id);
-		System.out.println(fullName);
 
-		scanner.close();
+		// Sacamos a la persona de la caja fuerte
+		Person persona = repository.obtenerPersonaDataById(id).orElse(null);
+
+		if (persona != null) {
+			System.out.println("id=" + persona.getId() + ", nombre=" + persona.getName() + ", apellido=" + persona.getLastName());
+		} else {
+			System.out.println("Persona no encontrada.");
+		}
+
+
+		System.out.println("========== consulta por campos personalizados lista ==========");
+		List<Object[]> regs = repository.obtenerPersonaDataList();
+		regs.forEach(p -> {
+			System.out.println("id=" + p[0] + ", nombre=" + p[1] + ", apellido=" + p[2]);
+		});
 	}
 
 	@Transactional(readOnly = true)
