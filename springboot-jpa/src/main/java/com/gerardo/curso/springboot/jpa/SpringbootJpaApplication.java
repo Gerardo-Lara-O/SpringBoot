@@ -32,7 +32,7 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		// aqui vamos a trabajar con nuestra persistancia
 		// findOne();
 		// create();
-		// update();
+		update();
 		// delete();
 		// personalizedQueries();
 		// personalizedQueries2();
@@ -41,7 +41,7 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		// personalizedQueriesBetwwen();
 		// queriesFunction();
 		// subqueries();
-		wherein();
+		// wherein();
 	}
 
 	@Transactional(readOnly = true)
@@ -252,41 +252,41 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 	@Transactional
 	public void create() {
-		// Scanner scanner = new Scanner(System.in);
-		// String name = scanner.next();
-		// String lastname = scanner.next();
-		// String programmingLanguage = scanner.next();
-		// scanner.close();
+		Scanner scanner = new Scanner(System.in);
+		String name = scanner.next();
+		String lastname = scanner.next();
+		String programmingLanguage = scanner.next();
+		scanner.close();
 
-		// Person person = new Person(null, name, lastname, programmingLanguage);
+		Person person = new Person(null, name, lastname, programmingLanguage);
 
-		// Person personNew = repository.save(person);
-		// System.out.println(personNew);
+		Person personNew = repository.save(person);
+		System.out.println(personNew);
 	}
 
 	@Transactional
 	public void update() {
-		// Scanner scanner = new Scanner(System.in);
-		// System.out.println("Ingrese el id de la persona: ");
-		// Long id = scanner.nextLong();
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Ingrese el id de la persona: ");
+		Long id = scanner.nextLong();
 
-		// Optional<Person> optionalPerson = repository.findById(id);
+		Optional<Person> optionalPerson = repository.findById(id);
 
-		// if (optionalPerson.isPresent()) {
-		// 	Person p = optionalPerson.orElseThrow();
+		if (optionalPerson.isPresent()) {
+			Person p = optionalPerson.orElseThrow();
 
-		// 	System.out.println(p);
-		// 	System.out.println("Ingrese el lenguage de programacion: ");
-		// 	String programmingLanguage = scanner.next();
-		// 	p.setProgrammingLanguage(programmingLanguage);
-		// 	Person personDb = repository.save(p);
-		// 	System.out.println(personDb);
+			System.out.println(p);
+			System.out.println("Ingrese el lenguage de programacion: ");
+			String programmingLanguage = scanner.next();
+			p.setProgrammingLanguage(programmingLanguage);
+			Person personDb = repository.save(p);
+			System.out.println(personDb);
 
-		// } else {
-		// 	System.out.println("El usuario no existe");
-		// }
+		} else {
+			System.out.println("El usuario no existe");
+		}
 
-		// scanner.close();
+		scanner.close();
 
 	}
 
