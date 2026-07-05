@@ -1,8 +1,8 @@
 package com.gerardo.curso.springboot.jpa.entities;
 
-import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,11 +24,10 @@ public class Person {
     @Column(name = "programming_language")
     private String programmingLanguage;
 
-    @Column(name = "create_at")
-    private LocalDateTime creatAt;
+    @Embedded
+    private Audit audit = new Audit();
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+
 
     
     // Constructors
@@ -46,17 +45,20 @@ public class Person {
         this.programmingLanguage = programmingLanguage;
     }
 
+    // 1. Aquí SÍ es legal poner la anotación porque Person es un @Entity
     @PrePersist
-    public void prePersist(){
-        System.out.println("Evento del ciclo de vida del entity pre persist");
-        this.creatAt = LocalDateTime.now();
+    public void prePersist() {
+        // Le delegamos el trabajo a nuestro "estuche" de auditoría
+        this.audit.prePersist();
     }
 
     @PreUpdate
-    public void preUpdate(){
-        System.out.println("Evento del ciclo de vida del objeto entity pre-update");
-        this.updatedAt = LocalDateTime.now();
+    public void preUpdate() {
+        // Le delegamos el trabajo a nuestro "estuche" de auditoría
+        this.audit.preUpdate();
     }
+
+
 
 
     // Getters y Setters
@@ -89,7 +91,7 @@ public class Person {
     @Override
     public String toString() {
         return "[id=" + id + ", name=" + name + ", lastname=" + lastname + ", programmingLanguage="
-                + programmingLanguage + ". createAt=" + creatAt + ", updatedAt=" + updatedAt + "]";
+                + programmingLanguage + ". createAt=" + audit.getCreatAt() + ", updatedAt=" + audit.getUpdatedAt() + "]";
     }
 
     

@@ -31,8 +31,8 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// aqui vamos a trabajar con nuestra persistancia
 		// findOne();
-		// create();
-		update();
+		create();
+		// update();
 		// delete();
 		// personalizedQueries();
 		// personalizedQueries2();
@@ -253,8 +253,11 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 	@Transactional
 	public void create() {
 		Scanner scanner = new Scanner(System.in);
+		System.out.println("Ingrese el nombre: ");
 		String name = scanner.next();
+		System.out.println("Ingrese el apellido: ");
 		String lastname = scanner.next();
+		System.out.println("Ingrese el lenguage: ");
 		String programmingLanguage = scanner.next();
 		scanner.close();
 
