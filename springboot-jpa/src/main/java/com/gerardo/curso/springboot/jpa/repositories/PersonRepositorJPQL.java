@@ -111,4 +111,7 @@ public interface PersonRepositorJPQL extends CrudRepository<Person, Long> {
 
     @Query("select p from Person p where p.id=(select max(p.id) from Person p)")
     public Optional<Person> getLastRegistration();
+
+    @Query("select p from Person p where p.id in ?1")
+    public List<Person> getPersonsByIds(List<Long> ids);
 }
