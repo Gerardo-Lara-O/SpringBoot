@@ -83,12 +83,22 @@ public interface PersonRepositorJPQL extends CrudRepository<Person, Long> {
     // Funciones JPQL
     // count()
     @Query("select count(p) from Person p")
-    Long totalPerson();
+    Long getTotalPerson();
 
     // min() max()
     @Query("select min(p.id) from Person p")
-    Long minId();
+    Long getMinId();
 
     @Query("select max(p.id) from Person p")
-    Long maxId();
+    Long getMaxId();
+
+    // length
+    @Query("select p.name, length(p.name) from Person p")
+    List<Object[]> getPersonNameLength();
+
+    @Query("select min(length(p.name)) from Person p")
+    public Integer getMinLengthName();
+
+    @Query("select max(length(p.name)) from Person p")
+    public Integer getMaxLengthName();
 }

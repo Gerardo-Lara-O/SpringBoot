@@ -161,13 +161,29 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 	@Transactional(readOnly = true)
 	public void queriesFunction(){
 
-		Long count = repository.totalPerson();
-		Long min = repository.minId();
-		Long max = repository.maxId();
+		Long count = repository.getTotalPerson();
+		Long min = repository.getMinId();
+		Long max = repository.getMaxId();
 
 		System.out.println("El total de usaurios es: " + count);
 		System.out.println("El id min es: " + min);
 		System.out.println("El id max es: " + max);
+
+		System.out.println("========== Consulta con el nombre y su largo  ==========");
+		List<Object[]> regs = repository.getPersonNameLength();
+		regs.forEach(reg -> {
+			String name = (String)reg[0];
+			Integer length = (Integer)reg[1];
+			System.out.println("name=" + name + ", length=" + length);
+		});
+
+		System.out.println("========== Consulta con el nombre mas corto  ==========");
+		Integer minLengthName = repository.getMinLengthName();
+		System.out.println(minLengthName);
+
+		System.out.println("========== Consulta con el nombre mas largo  ==========");
+		Integer maxLengthName = repository.getMaxLengthName();
+		System.out.println(maxLengthName);
 	}
 
 	// @Transactional(readOnly = true)
