@@ -64,13 +64,18 @@ public interface PersonRepositorJPQL extends CrudRepository<Person, Long> {
     List<Object[]> findAllPersonDataListCase();
 
 
-    @Query("select p from Person p where p.id between ?1 and ?2")
-    List<Person> findAllBetweenId(Integer c1, Integer c2);
+    @Query("select p from Person p where p.id between ?1 and ?2 order by p.name asc, p.lastname desc")
+    List<Person> findAllBetweenId(Long c1, Long c2);
 
-    @Query("select p from Person p where p.name between ?1 and ?2")
+    @Query("select p from Person p where p.name between ?1 and ?2 order by p.name desc")
     List<Person> findAllBetweenName(String c1, String c2);
 
     // Usando nomenclatura
-    List<Person> findByIdBetween(Long id1, Long id2);
-    List<Person> findByNameBetween(String name1, String name2);
+    List<Person> findByIdBetweenOrderByIdDesc(Long id1, Long id2);
+    List<Person> findByNameBetweenOrderByNameDescLastnameAsc(String name1, String name2);
+
+    @Query("select p from Person p order by p.name , p.lastname desc")
+    List<Person> getAllOrdered();
+
+    List<Person> findAllByOrderByNameDesc();
 }
