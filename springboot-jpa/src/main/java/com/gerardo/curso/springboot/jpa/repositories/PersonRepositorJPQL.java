@@ -78,4 +78,17 @@ public interface PersonRepositorJPQL extends CrudRepository<Person, Long> {
     List<Person> getAllOrdered();
 
     List<Person> findAllByOrderByNameDesc();
+
+
+    // Funciones JPQL
+    // count()
+    @Query("select count(p) from Person p")
+    Long totalPerson();
+
+    // min() max()
+    @Query("select min(p.id) from Person p")
+    Long minId();
+
+    @Query("select max(p.id) from Person p")
+    Long maxId();
 }

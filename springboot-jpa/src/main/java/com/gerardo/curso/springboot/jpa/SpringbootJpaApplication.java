@@ -37,7 +37,8 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		// personalizedQueries2();
 		// personalizedQueriesDistinct();
 		// personalizedQueriesConcatUpperAndLower();
-		personalizedQueriesBetwwen();
+		// personalizedQueriesBetwwen();
+		queriesFunction();
 	}
 
 	@Transactional(readOnly = true)
@@ -155,6 +156,18 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		System.out.println("========== Consultas de usuarios ordenados ==========");
 		persons = repository.findAllByOrderByNameDesc();
 		persons.forEach(System.out::println);
+	}
+
+	@Transactional(readOnly = true)
+	public void queriesFunction(){
+
+		Long count = repository.totalPerson();
+		Long min = repository.minId();
+		Long max = repository.maxId();
+
+		System.out.println("El total de usaurios es: " + count);
+		System.out.println("El id min es: " + min);
+		System.out.println("El id max es: " + max);
 	}
 
 	// @Transactional(readOnly = true)
