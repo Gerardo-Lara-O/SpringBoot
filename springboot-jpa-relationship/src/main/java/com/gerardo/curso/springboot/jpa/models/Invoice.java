@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,6 +17,9 @@ public class Invoice {
 
     private String description;
     private Long total;
+
+    @ManyToOne
+    private Client client;
 
     // Constructores
     public Invoice() {
@@ -59,7 +63,7 @@ public class Invoice {
 
     @Override
     public String toString() {
-        return "Invoice [id=" + id + ", description=" + description + ", total=" + total + "]";
+        return "{id=" + id + ", description=" + description + ", total=" + total + "}";
     }
 
     // Metodos
