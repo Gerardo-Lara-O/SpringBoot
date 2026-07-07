@@ -37,7 +37,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		removeInvoiceBidireccionalFindById();
+		removeInvoiceBidireccional();
 	}
 
 	@Transactional
@@ -204,8 +204,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 
 			Optional<Invoice> invoiceOptional = Optional.of(invoice3); // invoiceRepository.findById(2L);
 			invoiceOptional.ifPresent(invoice -> {
-				client.getInvoices().remove(invoice);
-				invoice.setClient(null);
+				client.removeInvoice(invoice);
 
 				clientRepository.save(client);
 				System.out.println(client);
@@ -213,5 +212,37 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 		});
 		
 	}
+
+	@Transactional
+	public void removeInvoiceBidireccional(){
+
+		Client client = new Client("Fran","Moras");
+
+		Invoice invoice1 = new Invoice("Compras de la casa",5000L);
+		Invoice invoice2 = new Invoice("Compras de oficina",8000L);
+
+		client.addInvoice(invoice1).addInvoice(invoice2);
+
+		clientRepository.save(client);
+		System.out.println(client);
+		
+		Optional<Client> optionalClient = clientRepository.findOne(1L);
+
+		optionalClient.ifPresent(clientDb -> {
+			Invoice invoice3 = new Invoice("compras de la casa",5000L);
+			invoice3.setId(1L);
+
+			Optional<Invoice> invoiceOptional = Optional.of(invoice3); // invoiceRepository.findById(2L);
+			invoiceOptional.ifPresent(invoice -> {
+				client.removeInvoice(invoice);
+
+				clientRepository.save(clientDb);
+				System.out.println(clientDb);
+			});
+
+		});
+		
+	}
+
 
 }

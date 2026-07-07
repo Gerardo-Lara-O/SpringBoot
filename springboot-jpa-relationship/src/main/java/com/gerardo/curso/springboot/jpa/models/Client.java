@@ -114,6 +114,11 @@ public class Client {
         invoice.setClient(this);
         return this;
     }
+
+    public void removeInvoice(Invoice invoice) {
+        this.getInvoices().remove(invoice);
+        invoice.setClient(null);
+    }
     
 
     
