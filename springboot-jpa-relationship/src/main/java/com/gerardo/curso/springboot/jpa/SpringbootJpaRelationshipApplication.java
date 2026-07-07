@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gerardo.curso.springboot.jpa.models.Client;
 import com.gerardo.curso.springboot.jpa.models.Invoice;
 import com.gerardo.curso.springboot.jpa.repositories.ClientRepository;
 import com.gerardo.curso.springboot.jpa.repositories.InvoiceRepository;
+
+import jakarta.persistence.ManyToOne;
 
 @SpringBootApplication
 public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
@@ -31,6 +34,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 		manyToOneFindByIdClient();
 	}
 
+	@Transactional
 	public void manyToOne(){
 
 		Client client = new Client("John", "Doe");
@@ -43,17 +47,18 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 
 	}
 
-		public void manyToOneFindByIdClient(){
+	@Transactional
+	public void manyToOneFindByIdClient(){
 
-			Optional<Client> optionalClient = clientRepository.findById(2L);
+		Optional<Client> optionalClient = clientRepository.findById(2L);
 
-			if (optionalClient.isPresent()) {
-				Client client = optionalClient.orElseThrow();
-				Invoice invoice = new Invoice("Compras de oficina", 2000L);
-				invoice.setClient(client);
-				Invoice invoiceDb = invoiceRepository.save(invoice);
-				System.out.println(invoiceDb);
-			}
+		if (optionalClient.isPresent()) {
+			Client client = optionalClient.orElseThrow();
+			Invoice invoice = new Invoice("Compras de oficina", 2000L);
+			invoice.setClient(client);
+			Invoice invoiceDb = invoiceRepository.save(invoice);
+			System.out.println(invoiceDb);
+		}
 
 
 		

@@ -1,9 +1,14 @@
 package com.gerardo.curso.springboot.jpa.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,9 +21,14 @@ public class Client {
 
     private String name;
     private String lastname;
+
+    // Asi como lo tenemos nos va a crear una nueva tabla con los IDs de las foraneas
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Address> addresses; 
     
     // Constructor
     public Client() {
+        addresses = new ArrayList<>(); // cuando es una lista de este tipo la tenemos que inicializar
     }
 
     public Client(String name, String lastname) {
@@ -57,9 +67,18 @@ public class Client {
         this.lastname = lastname;
     }
 
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+    
+
     @Override
     public String toString() {
-        return "{id=" + id + ", name=" + name + ", lastname=" + lastname + "}";
+        return "{id=" + id + ", name=" + name + ", lastname=" + lastname + ", addresses=" + addresses + "}";
     }
 
     // Metodos
