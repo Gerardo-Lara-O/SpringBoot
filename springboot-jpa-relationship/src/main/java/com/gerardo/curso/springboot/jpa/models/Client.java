@@ -24,14 +24,14 @@ public class Client {
 
     // Asi como lo tenemos nos va a crear una nueva tabla con los IDs de las foraneas
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Address> addresses; 
+    private List<Address> addresses = new ArrayList<>(); // cuando es una lista de este tipo la tenemos que inicializar
     
     // Constructor
     public Client() {
-        addresses = new ArrayList<>(); // cuando es una lista de este tipo la tenemos que inicializar
     }
 
     public Client(String name, String lastname) {
+        this();
         this.name = name;
         this.lastname = lastname;
     }

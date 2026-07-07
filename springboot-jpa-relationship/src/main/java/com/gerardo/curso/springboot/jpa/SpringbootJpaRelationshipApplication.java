@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gerardo.curso.springboot.jpa.models.Address;
 import com.gerardo.curso.springboot.jpa.models.Client;
 import com.gerardo.curso.springboot.jpa.models.Invoice;
 import com.gerardo.curso.springboot.jpa.repositories.ClientRepository;
@@ -31,7 +32,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		manyToOneFindByIdClient();
+		oneToMany();
 	}
 
 	@Transactional
@@ -59,10 +60,21 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 			Invoice invoiceDb = invoiceRepository.save(invoice);
 			System.out.println(invoiceDb);
 		}
+	}
 
+	@Transactional
+	public void oneToMany(){
+		Client client = new Client("Fran","Moras");
 
-		
+		Address address1 = new Address("El Vergel", 12345);
+		Address address2 = new Address("Vasco de Gama", 9875);
 
+		client.getAddresses().add(address1);
+		client.getAddresses().add(address2);
+
+		clientRepository.save(client);
+
+		System.out.println(client);
 	}
 
 }
