@@ -33,7 +33,10 @@ public class Client {
         joinColumns = @JoinColumn(name = "id_cliente"), 
         inverseJoinColumns = @JoinColumn(name = "id_direcciones"),
         uniqueConstraints = @UniqueConstraint(columnNames = {"id_direcciones"}))
-    private List<Address> addresses = new ArrayList<>(); // cuando es una lista de este tipo la tenemos que inicializar
+    private List<Address> addresses = new ArrayList<>();
+
+    @OneToMany(mappedBy = "client",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Invoice> invoices = new ArrayList<>();
     
     // Constructor
     public Client() {
@@ -83,11 +86,24 @@ public class Client {
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
     }
+
+    public List<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
+    }
     
 
     @Override
     public String toString() {
-        return "{id=" + id + ", name=" + name + ", lastname=" + lastname + ", addresses=" + addresses + "}";
+        return "{id=" + id + 
+        ", name=" + name + 
+        ", lastname=" + lastname + 
+        ", invoices=" + invoices + 
+        ", addresses=" + addresses + 
+        "}";
     }
 
     // Metodos
