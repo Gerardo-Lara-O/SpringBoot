@@ -1,7 +1,9 @@
 package com.gerardo.curso.springboot.jpa.models;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -33,10 +35,10 @@ public class Client {
         joinColumns = @JoinColumn(name = "id_cliente"), 
         inverseJoinColumns = @JoinColumn(name = "id_direcciones"),
         uniqueConstraints = @UniqueConstraint(columnNames = {"id_direcciones"}))
-    private List<Address> addresses = new ArrayList<>();
+    private Set<Address> addresses = new HashSet<>();
 
     @OneToMany(mappedBy = "client",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Invoice> invoices = new ArrayList<>();
+    private Set<Invoice> invoices = new HashSet<>();
     
     // Constructor
     public Client() {
@@ -79,19 +81,19 @@ public class Client {
         this.lastname = lastname;
     }
 
-    public List<Address> getAddresses() {
+    public Set<Address> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(List<Address> addresses) {
+    public void setAddresses(Set<Address> addresses) {
         this.addresses = addresses;
     }
 
-    public List<Invoice> getInvoices() {
+    public Set<Invoice> getInvoices() {
         return invoices;
     }
 
-    public void setInvoices(List<Invoice> invoices) {
+    public void setInvoices(Set<Invoice> invoices) {
         this.invoices = invoices;
     }
     
