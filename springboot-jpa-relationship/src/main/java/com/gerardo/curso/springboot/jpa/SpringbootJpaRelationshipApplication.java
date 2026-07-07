@@ -149,13 +149,8 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 		Invoice invoice1 = new Invoice("Compras de la casa",5000L);
 		Invoice invoice2 = new Invoice("Compras de oficina",8000L);
 
-		List<Invoice> invoices = new ArrayList<>();
-		invoices.add(invoice1);
-		invoices.add(invoice2);
-		client.setInvoices(invoices);
-
-		invoice1.setClient(client);
-		invoice2.setClient(client);
+		client.addInvoice(invoice1);
+		client.addInvoice(invoice2);
 
 		clientRepository.save(client);
 		System.out.println(client);

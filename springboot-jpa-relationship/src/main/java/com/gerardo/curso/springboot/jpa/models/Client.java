@@ -107,7 +107,11 @@ public class Client {
     }
 
     // Metodos
-    
+    public Client addInvoice(Invoice invoice){
+        invoices.add(invoice);
+        invoice.setClient(this);
+        return this;
+    }
     
 
     
