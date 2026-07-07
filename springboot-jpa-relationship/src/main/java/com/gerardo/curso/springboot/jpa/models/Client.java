@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -24,6 +25,7 @@ public class Client {
 
     // Asi como lo tenemos nos va a crear una nueva tabla con los IDs de las foraneas
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "client_id")
     private List<Address> addresses = new ArrayList<>(); // cuando es una lista de este tipo la tenemos que inicializar
     
     // Constructor
