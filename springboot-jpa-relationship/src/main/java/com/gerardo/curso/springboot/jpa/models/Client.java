@@ -41,8 +41,7 @@ public class Client {
     @OneToMany(mappedBy = "client",cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Invoice> invoices = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_cliente_detalle")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private ClientDetail clientDetail;
     
     // Constructor
@@ -109,6 +108,14 @@ public class Client {
 
     public void setClientDetail(ClientDetail clientDetail) {
         this.clientDetail = clientDetail;
+		clientDetail.setClient(this);
+
+    }
+
+    public void removeClientDetail(ClientDetail clientDetail) {
+		clientDetail.setClient(null);
+        this.clientDetail = null;
+
     }
     
 
