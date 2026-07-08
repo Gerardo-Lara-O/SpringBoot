@@ -53,7 +53,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		manyToManyRemove();
+		manyTomanyBidireccionalRemove();
 	}
 
 	@Transactional
@@ -428,6 +428,69 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 			if (courseOptionalDb.isPresent()) {
 				Course courseDb = courseOptionalDb.get();
 				studentDb.getCourses().remove(courseDb);
+
+				studentRepository.save(studentDb);
+				System.out.println(studentDb);
+			}
+		}
+
+
+	}
+
+	@Transactional
+	public void manyTomanyBidireccional(){
+		Student student1 = new Student("Jano","Pura");
+		Student student2 = new Student("Erba","Doe");
+
+		Course course1 = new Course("Curso de java master", "Andres");
+		Course course2 = new Course("Curso de Spring", "Andres");
+
+		// relacion
+		// student1.setCourses(Set.of(course1,course2)); 
+		// student2.setCourses(Set.of(course2));
+		student1.addCourse(course1);
+		student1.addCourse(course2);
+
+		student2.addCourse(course2);
+
+		studentRepository.saveAll(Set.of(student1,student2));
+
+		System.out.println(student1);
+		System.out.println(student2);
+
+
+	}
+
+		@Transactional
+	public void manyTomanyBidireccionalRemove(){
+		Student student1 = new Student("Jano","Pura");
+		Student student2 = new Student("Erba","Doe");
+
+		Course course1 = new Course("Curso de java master", "Andres");
+		Course course2 = new Course("Curso de Spring", "Andres");
+
+		// relacion
+		// student1.setCourses(Set.of(course1,course2)); 
+		// student2.setCourses(Set.of(course2));
+		student1.addCourse(course1);
+		student1.addCourse(course2);
+
+		student2.addCourse(course2);
+
+		studentRepository.saveAll(Set.of(student1,student2));
+
+		System.out.println(student1);
+		System.out.println(student2);
+
+		Optional<Student> studentOptionalDb = studentRepository.findOneWithCourses(3L);
+		if (studentOptionalDb.isPresent()) {
+			
+			Student studentDb = studentOptionalDb.get();
+			Optional<Course> courseOptionalDb = courseRepository.findOneWithStudents(3L);
+
+			if (courseOptionalDb.isPresent()) {
+				Course courseDb = courseOptionalDb.get();
+				studentDb.removeCourse(courseDb);
 
 				studentRepository.save(studentDb);
 				System.out.println(studentDb);
