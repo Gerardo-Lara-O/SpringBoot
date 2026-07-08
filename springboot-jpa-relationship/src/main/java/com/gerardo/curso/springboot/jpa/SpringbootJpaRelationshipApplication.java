@@ -16,10 +16,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gerardo.curso.springboot.jpa.models.Address;
 import com.gerardo.curso.springboot.jpa.models.Client;
 import com.gerardo.curso.springboot.jpa.models.ClientDetail;
+import com.gerardo.curso.springboot.jpa.models.Course;
 import com.gerardo.curso.springboot.jpa.models.Invoice;
+import com.gerardo.curso.springboot.jpa.models.Student;
 import com.gerardo.curso.springboot.jpa.repositories.ClientDetailRepository;
 import com.gerardo.curso.springboot.jpa.repositories.ClientRepository;
 import com.gerardo.curso.springboot.jpa.repositories.InvoiceRepository;
+import com.gerardo.curso.springboot.jpa.repositories.StudentRepository;
 
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -36,6 +39,9 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 	@Autowired
 	private ClientDetailRepository clientDetailRepository;
 
+	@Autowired
+	private StudentRepository studentRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootJpaRelationshipApplication.class, args);
 		
@@ -43,7 +49,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		OneToOneBidireccionalFindById();
+		manyTomany();
 	}
 
 	@Transactional
@@ -308,6 +314,27 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 		
 		
 		
+	}
+	// EJEMPLO MANY TO MANY Unidireccional
+
+	@Transactional
+	public void manyTomany(){
+		Student student1 = new Student("Jano","Pura");
+		Student student2 = new Student("Erba","Doe");
+
+		Course course1 = new Course("Curso de java master", "Andres");
+		Course course2 = new Course("Curso de Spring", "Andres");
+
+		// relacion
+		student1.setCourses(Set.of(course1,course2)); // esto es como el Arrays.aslist pero del Set
+		student2.setCourses(Set.of(course2));
+
+		studentRepository.saveAll(Set.of(student1,student2));
+
+		System.out.println(student1);
+		System.out.println(student2);
+
+
 	}
 
 
