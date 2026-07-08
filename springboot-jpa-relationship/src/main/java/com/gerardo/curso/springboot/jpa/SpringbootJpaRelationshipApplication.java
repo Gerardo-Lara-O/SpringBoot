@@ -53,7 +53,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		manyTomanyFind();
+		manyToManyRemove();
 	}
 
 	@Transactional
@@ -360,6 +360,79 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 
 		System.out.println(student1);
 		System.out.println(student2);
+
+
+	}
+
+	@Transactional
+	public void manyTomanyRemoveFind(){
+		Optional<Student> studentOptional1 = studentRepository.findById(1L);
+		Optional<Student> studentOptional2 = studentRepository.findById(2L);
+
+		Student student1 = studentOptional1.get();
+		Student student2 = studentOptional2.get();
+
+		Course course1 = courseRepository.findById(1L).get();
+		Course course2 = courseRepository.findById(2L).get();
+
+		// relacion
+		student1.setCourses(Set.of(course1,course2)); // esto es como el Arrays.aslist pero del Set
+		student2.setCourses(Set.of(course2));
+
+		studentRepository.saveAll(Set.of(student1,student2));
+
+		System.out.println(student1);
+		System.out.println(student2);
+
+		Optional<Student> studentOptionalDb = studentRepository.findOneWithCourses(1L);
+		if (studentOptionalDb.isPresent()) {
+			
+			Student studentDb = studentOptionalDb.get();
+			Optional<Course> courseOptionalDb = courseRepository.findById(2L);
+
+			if (courseOptionalDb.isPresent()) {
+				Course courseDb = courseOptionalDb.get();
+				studentDb.getCourses().remove(courseDb);
+
+				studentRepository.save(studentDb);
+				System.out.println(studentDb);
+			}
+		}
+
+
+	}
+
+	@Transactional
+	public void manyToManyRemove(){
+		Student student1 = new Student("Jano","Pura");
+		Student student2 = new Student("Erba","Doe");
+
+		Course course1 = new Course("Curso de java master", "Andres");
+		Course course2 = new Course("Curso de Spring", "Andres");
+
+		// relacion
+		student1.setCourses(Set.of(course1,course2)); // esto es como el Arrays.aslist pero del Set
+		student2.setCourses(Set.of(course2));
+
+		studentRepository.saveAll(Set.of(student1,student2));
+
+		System.out.println(student1);
+		System.out.println(student2);
+
+		Optional<Student> studentOptionalDb = studentRepository.findOneWithCourses(3L);
+		if (studentOptionalDb.isPresent()) {
+			
+			Student studentDb = studentOptionalDb.get();
+			Optional<Course> courseOptionalDb = courseRepository.findById(3L);
+
+			if (courseOptionalDb.isPresent()) {
+				Course courseDb = courseOptionalDb.get();
+				studentDb.getCourses().remove(courseDb);
+
+				studentRepository.save(studentDb);
+				System.out.println(studentDb);
+			}
+		}
 
 
 	}
