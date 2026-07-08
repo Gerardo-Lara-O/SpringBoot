@@ -15,11 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gerardo.curso.springboot.jpa.models.Address;
 import com.gerardo.curso.springboot.jpa.models.Client;
+import com.gerardo.curso.springboot.jpa.models.ClientDetail;
 import com.gerardo.curso.springboot.jpa.models.Invoice;
+import com.gerardo.curso.springboot.jpa.repositories.ClientDetailRepository;
 import com.gerardo.curso.springboot.jpa.repositories.ClientRepository;
 import com.gerardo.curso.springboot.jpa.repositories.InvoiceRepository;
 
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @SpringBootApplication
 public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
@@ -30,6 +33,9 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 	@Autowired
 	private InvoiceRepository invoiceRepository;
 
+	@Autowired
+	private ClientDetailRepository clientDetailRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootJpaRelationshipApplication.class, args);
 		
@@ -37,7 +43,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		removeInvoiceBidireccional();
+		OneToOne();
 	}
 
 	@Transactional
@@ -242,6 +248,17 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 
 		});
 		
+	}
+
+	@Transactional
+	public void OneToOne(){
+		Client client = new Client("Fran","Moras");
+		clientRepository.save(client);
+
+		ClientDetail clientDetails = new ClientDetail(true, 5000);
+		clientDetails.setClient(client);
+
+		clientDetailRepository.save(clientDetails);
 	}
 
 
