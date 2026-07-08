@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+// import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,8 +19,10 @@ public class ClientDetail {
 
     private Integer points;
 
-    @OneToOne
-    private Client client;
+    // @OneToOne
+    // private Client client;
+
+    public ClientDetail(){}
 
     public ClientDetail(boolean premium, Integer points) {
         this.premium = premium;
@@ -51,13 +53,13 @@ public class ClientDetail {
         this.points = points;
     }
 
-        public Client getClient() {
-        return client;
-    }
+    // public Client getClient() {
+    //     return client;
+    // }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
+    // public void setClient(Client client) {
+    //     this.client = client;
+    // }
     
     @Override
     public String toString() {

@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
@@ -39,6 +40,10 @@ public class Client {
 
     @OneToMany(mappedBy = "client",cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Invoice> invoices = new HashSet<>();
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_cliente_detalle")
+    private ClientDetail clientDetail;
     
     // Constructor
     public Client() {
@@ -96,6 +101,15 @@ public class Client {
     public void setInvoices(Set<Invoice> invoices) {
         this.invoices = invoices;
     }
+
+
+    public ClientDetail getClientDetail() {
+        return clientDetail;
+    }
+
+    public void setClientDetail(ClientDetail clientDetail) {
+        this.clientDetail = clientDetail;
+    }
     
 
     @Override
@@ -105,6 +119,7 @@ public class Client {
         ", lastname=" + lastname + 
         ", invoices=" + invoices + 
         ", addresses=" + addresses + 
+        ", clientDetails=" + clientDetail + 
         "}";
     }
 
