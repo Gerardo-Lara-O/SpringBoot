@@ -21,6 +21,7 @@ import com.gerardo.curso.springboot.jpa.models.Invoice;
 import com.gerardo.curso.springboot.jpa.models.Student;
 import com.gerardo.curso.springboot.jpa.repositories.ClientDetailRepository;
 import com.gerardo.curso.springboot.jpa.repositories.ClientRepository;
+import com.gerardo.curso.springboot.jpa.repositories.CourseRepository;
 import com.gerardo.curso.springboot.jpa.repositories.InvoiceRepository;
 import com.gerardo.curso.springboot.jpa.repositories.StudentRepository;
 
@@ -42,6 +43,9 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 	@Autowired
 	private StudentRepository studentRepository;
 
+	@Autowired
+	private CourseRepository courseRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootJpaRelationshipApplication.class, args);
 		
@@ -49,7 +53,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		manyTomany();
+		manyTomanyFind();
 	}
 
 	@Transactional
@@ -324,6 +328,29 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner{
 
 		Course course1 = new Course("Curso de java master", "Andres");
 		Course course2 = new Course("Curso de Spring", "Andres");
+
+		// relacion
+		student1.setCourses(Set.of(course1,course2)); // esto es como el Arrays.aslist pero del Set
+		student2.setCourses(Set.of(course2));
+
+		studentRepository.saveAll(Set.of(student1,student2));
+
+		System.out.println(student1);
+		System.out.println(student2);
+
+
+	}
+
+	@Transactional
+	public void manyTomanyFind(){
+		Optional<Student> studentOptional1 = studentRepository.findById(1L);
+		Optional<Student> studentOptional2 = studentRepository.findById(2L);
+
+		Student student1 = studentOptional1.get();
+		Student student2 = studentOptional2.get();
+
+		Course course1 = courseRepository.findById(1L).get();
+		Course course2 = courseRepository.findById(2L).get();
 
 		// relacion
 		student1.setCourses(Set.of(course1,course2)); // esto es como el Arrays.aslist pero del Set
