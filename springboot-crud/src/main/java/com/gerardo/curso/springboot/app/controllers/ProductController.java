@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gerardo.curso.springboot.app.models.Product;
 import com.gerardo.curso.springboot.app.services.ProductService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
@@ -40,13 +42,13 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> create(@RequestBody Product product){
+    public ResponseEntity<Product> create(@Valid @RequestBody Product product){
         Product productNew = service.save(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(productNew);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product product){
+    public ResponseEntity<Product> update(@PathVariable Long id, @Valid @RequestBody Product product){
         Optional<Product> productOptional = service.update(id, product);
         if (productOptional.isPresent()) {
             
