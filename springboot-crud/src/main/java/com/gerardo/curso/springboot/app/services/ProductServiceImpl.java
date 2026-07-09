@@ -53,12 +53,19 @@ public class ProductServiceImpl implements ProductService{
         if(producOptional.isPresent()){
             Product productDb = producOptional.orElseThrow();
             
+            productDb.setSku(product.getSku());
             productDb.setName(product.getName());
             productDb.setDescription(product.getDescription());
             productDb.setPrice(product.getPrice());
             return Optional.of(productRepository.save(productDb));
         }
         return producOptional;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existsBySku(String sku) {
+        return productRepository.existsBySku(sku);
     }
 
     

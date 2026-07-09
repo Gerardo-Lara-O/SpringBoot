@@ -1,5 +1,6 @@
 package com.gerardo.curso.springboot.app.models;
 
+import com.gerardo.curso.springboot.app.Validation.IsExistDb;
 import com.gerardo.curso.springboot.app.Validation.IsRequired;
 
 import jakarta.persistence.Entity;
@@ -30,6 +31,10 @@ public class Product {
 
     @NotBlank(message = "{NotBlanck.product.description}")
     private String description;
+
+    @IsExistDb
+    @IsRequired
+    private String sku;
 
     public Product(){
 
@@ -73,6 +78,15 @@ public class Product {
         this.description = description;
     }
 
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    
     
     
 }
