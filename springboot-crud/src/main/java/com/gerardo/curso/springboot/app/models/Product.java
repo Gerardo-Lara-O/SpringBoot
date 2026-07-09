@@ -1,5 +1,7 @@
 package com.gerardo.curso.springboot.app.models;
 
+import com.gerardo.curso.springboot.app.Validation.IsRequired;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,7 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -18,7 +19,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "{NotEmpty.product.name}")
+    // @NotEmpty(message = "{NotEmpty.product.name}")
+    @IsRequired(message = "{IsRequired.product.name}")
     @Size(min = 3,max = 20)
     private String name;
 
